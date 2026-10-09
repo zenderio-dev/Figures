@@ -1,5 +1,28 @@
-// TODO: дополнить определение класса размерами и позицией
-class Square  {
-    // TODO: унаследовать от Figure, реализовать area()
-    // TODO: реализовать интерфейс Transforming
+// (x, y) - центр квадрата
+class Square(var x: Int, var y: Int, var side: Int) : Movable, Transforming, Figure(0) {
+    override fun move(dx: Int, dy: Int) {
+        x += dx; y += dy
+    }
+
+    override fun area(): Float {
+        return (side*side).toFloat()
+    }
+
+    override fun resize(zoom: Int) {
+        side *= zoom
+    }
+
+    override fun rotate(direction: RotateDirection, centerX: Int, centerY: Int) {
+        val dx = x - centerX
+        val dy = y - centerY
+        if (direction == RotateDirection.Clockwise) {
+            x = centerX + dy; y = centerY - dx
+        } else {
+            x = centerX - dy; y = centerY + dx
+        }
+    }
+
+    override fun toString(): String {
+        return "Square(x=$x, y=$y, side=$side, area=${area()})"
+    }
 }
